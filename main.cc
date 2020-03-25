@@ -7,9 +7,7 @@
 #include <iostream>
 #include <iterator>
 #include <list>
-#include <map>
 #include <queue>
-#include <set>
 #include <sstream>
 #include <stack>
 #include <string>
@@ -19,6 +17,8 @@
 #include <random>
 #include <regex>
 #include <tuple>
+#include <map>
+#include <set>
 #include <unordered_map>
 #include <unordered_set>
 
@@ -123,6 +123,45 @@ pair<vector<A>, vector<B>> unzip(cont &T) {
         T.second.push_back(x.second);
     }
     return ans;
+}
+
+template<typename T>
+vector<T> read_tab(int n) {
+    vector<T> ans(n);
+    for(int i = 0; i < n; ++i) cin >> ans[i];
+    return ans;
+}
+
+template<typename C>
+struct is_iterable {
+  typedef long false_type;
+  typedef char true_type;
+
+  template<class T> static false_type check(...);
+  template<class T> static true_type  check(int,
+                    typename T::const_iterator = C().end());
+
+  enum { value = sizeof(check<C>(0)) == sizeof(true_type) };
+};
+
+template<typename T>
+void print(T x) {
+    if constexpr (is_iterable<T>::value) {
+        if constexpr (is_same<string, T>::value) {
+            cout << '"' << x << '"';
+        }
+        else {
+            cout << '[';
+            bool fst = true;
+            for(auto y : x) {
+                if(!fst) cout << ',';
+                fst = false;
+                print(y);
+            }
+            cout << ']';
+        }
+    }
+    else cout << x;
 }
 
 signed main() {
