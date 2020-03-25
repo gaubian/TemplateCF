@@ -1,0 +1,132 @@
+//#define int long long
+#include <algorithm>
+#include <bitset>
+#include <complex>
+#include <deque>
+#include <functional>
+#include <iostream>
+#include <iterator>
+#include <list>
+#include <map>
+#include <queue>
+#include <set>
+#include <sstream>
+#include <stack>
+#include <string>
+#include <vector>
+#include <array>
+#include <initializer_list>
+#include <random>
+#include <regex>
+#include <tuple>
+#include <unordered_map>
+#include <unordered_set>
+
+using namespace std;
+
+#define DEBUG printf("\nPassing [%s] in LINE %d\n",__FUNCTION__,__LINE__)
+#define fo(i,a,n) for (int i=a;i<n;i++)
+#define of(i,a,n) for (int i=n-1;i>=a;i--)
+#define pb push_back
+#define mp make_pair
+#define mt make_tuple
+#define all(x) (x).begin(),(x).end()
+#define fi first
+#define se second
+#define SZ(x) ((int)(x).size())
+
+using VI = vector<int>;
+using VVI = vector<VI>;
+using VVVI = vector<VVI>;
+using LL = long long;
+using VLL = vector<LL>;
+using VVLL = vector<VLL>;
+using PI = pair<int,int>;
+
+template <typename T> void setmin(T& a, T b) { if (b < a) a = b; }
+template <typename T> void setmax(T& a, T b) { if (b > a) a = b; }
+template<class T>T sqr(T a){return a*a;}
+template<class T,class T2>T mmin(T a,T2 b){return a<b?a:b;}
+template<class T,class T2>T mmax(T a,T2 b){return a>b?a:b;}
+template<class T>T aabs(T a){return a<0?-a:a;}
+#define min mmin
+#define max mmax
+#define abs aabs
+LL gcd(LL a,LL b) { return b?gcd(b,a%b):a;}
+const double EPS = 1e-8;
+
+template <typename T, typename ContainerT>
+T maximum(ContainerT &cont) {
+    T best = *(cont.begin());
+    for(T x : cont) setmax(best, x);
+    return best;
+}
+
+template <typename T, typename ContainerT>
+T minimum(ContainerT &cont) {
+    T best = *(cont.begin());
+    for(T x : cont) setmin(best, x);
+    return best;
+}
+
+template <typename T, typename ContainerT>
+T maximum(ContainerT &cont, T best) {
+    for(T x : cont) setmax(best, x);
+    return best;
+}
+
+template <typename T, typename ContainerT>
+T minimum(ContainerT &cont, T best) {
+    for(T x : cont) setmin(best, x);
+    return best;
+}
+
+template <typename D>
+D dPower(D base, LL exponent) {
+    if (exponent < 0) {
+        return dPower(1 / base, -exponent);
+    }
+    if (exponent == 0) {
+        return 1;
+    }
+    if ((exponent & 1) == 1) {
+        return dPower(base, exponent - 1) * base;
+    } else {
+        D res = dPower(base, exponent >> 1);
+        return res * res;
+    }
+}
+
+vector<int> range(int a, int b) {
+    vector<int> tab;
+    for(int i = a; i < b; ++i) tab.push_back(i);
+    return tab;
+}
+
+vector<int> range(int n) {
+    return range(0, n);
+}
+
+template<typename contT1, typename T1, typename contT2, typename T2>
+vector<pair<T1,T2>> zip(contT1 &A, contT2 &B) {
+    vector<pair<T1, T2>> ans;
+    for(auto itA = A.begin(), itB = B.begin(); itA != A.end() && itB != B.end(); ++itA, itB)
+        ans.push_back(make_pair(*itA, *itB));
+    return ans;
+}
+
+template<typename A, typename B, typename cont>
+pair<vector<A>, vector<B>> unzip(cont &T) {
+    pair<vector<A>, vector<B>> ans;
+    for(pair<A, B> x : T) {
+        T.first.push_back(x.first);
+        T.second.push_back(x.second);
+    }
+    return ans;
+}
+
+signed main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+}
