@@ -144,6 +144,14 @@ struct is_iterable {
   enum { value = sizeof(check<C>(0)) == sizeof(true_type) };
 };
 
+template <typename>
+struct is_pair : std::false_type
+{ };
+
+template <typename T, typename U>
+struct is_pair<std::pair<T, U>> : std::true_type
+{ };
+
 template<typename T>
 void print(T x) {
     if constexpr (is_iterable<T>::value) {
@@ -161,12 +169,20 @@ void print(T x) {
             cout << ']';
         }
     }
-    else cout << x;
+    else {
+        if constexpr (is_pair<T>::value) {
+            cout << '(';
+            print(x.first);
+            cout << ',';
+            print(x.second);
+            cout << ')';
+        }
+        else cout << x;
+    }
 }
 
 signed main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-
 }
