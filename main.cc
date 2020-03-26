@@ -152,6 +152,33 @@ template <typename T, typename U>
 struct is_pair<std::pair<T, U>> : std::true_type
 { };
 
+template<typename T> void print(T x);
+
+template<class Tuple, std::size_t N>
+struct TuplePrinter {
+    static void print_tuple(const Tuple& t) 
+    {
+        TuplePrinter<Tuple, N-1>::print_tuple(t);
+        std::cout << ",";
+        print(std::get<N-1>(t));
+    }
+};
+
+template<class Tuple>
+struct TuplePrinter<Tuple, 1> {
+    static void print_tuple(const Tuple& t) 
+    {
+        print(std::get<0>(t));
+    }
+};
+
+template<class... Args>
+void print(std::tuple<Args...>& t) {
+    cout << "(";
+    TuplePrinter<decltype(t), sizeof...(Args)>::print_tuple(t);
+    cout << ")";
+}
+
 template<typename T>
 void print(T x) {
     if constexpr (is_iterable<T>::value) {
