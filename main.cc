@@ -55,29 +55,29 @@ template<class T>T aabs(T a){return a<0?-a:a;}
 LL gcd(LL a,LL b) { return b?gcd(b,a%b):a;}
 const double EPS = 1e-8;
 
-template <typename T, typename ContainerT>
-T maximum(ContainerT &cont) {
-    T best = *(cont.begin());
-    for(T x : cont) setmax(best, x);
+template <typename T>
+typename T::value_type maximum(T &cont) {
+    typename T::value_type best = *(cont.begin());
+    for(typename T::value_type x : cont) setmax(best, x);
     return best;
 }
 
-template <typename T, typename ContainerT>
-T minimum(ContainerT &cont) {
-    T best = *(cont.begin());
-    for(T x : cont) setmin(best, x);
+template <typename T>
+typename T::value_type maximum(T &cont, typename T::value_type best) {
+    for(typename T::value_type x : cont) setmax(best, x);
     return best;
 }
 
-template <typename T, typename ContainerT>
-T maximum(ContainerT &cont, T best) {
-    for(T x : cont) setmax(best, x);
+template <typename T>
+typename T::value_type minimum(T &cont) {
+    typename T::value_type best = *(cont.begin());
+    for(typename T::value_type x : cont) setmin(best, x);
     return best;
 }
 
-template <typename T, typename ContainerT>
-T minimum(ContainerT &cont, T best) {
-    for(T x : cont) setmin(best, x);
+template <typename T>
+typename T::value_type minimum(T &cont, typename T::value_type best) {
+    for(typename T::value_type x : cont) setmin(best, x);
     return best;
 }
 
@@ -212,4 +212,5 @@ signed main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
+
 }
