@@ -107,21 +107,28 @@ vector<int> range(int n) {
     return range(0, n);
 }
 
-template<typename contT1, typename T1, typename contT2, typename T2>
-vector<pair<T1,T2>> zip(contT1 &A, contT2 &B) {
+template<typename T1, typename T2>
+vector<pair<T1,T2>> zip(vector<T1> &A, vector<T2> &B) {
     vector<pair<T1, T2>> ans;
-    for(auto itA = A.begin(), itB = B.begin(); itA != A.end() && itB != B.end(); ++itA, itB)
-        ans.push_back(make_pair(*itA, *itB));
+    for(int i = 0; i < A.size() && i < B.size(); ++i)
+        ans.push_back(make_pair(A[i], B[i]));
     return ans;
 }
 
-template<typename A, typename B, typename cont>
-pair<vector<A>, vector<B>> unzip(cont &T) {
+template<typename A, typename B>
+pair<vector<A>, vector<B>> unzip(vector<pair<A, B>> &T) {
     pair<vector<A>, vector<B>> ans;
     for(pair<A, B> x : T) {
         T.first.push_back(x.first);
         T.second.push_back(x.second);
     }
+    return ans;
+}
+
+template<typename A, typename B>
+vector<pair<B, A>> zip_rev(vector<pair<A,B>> &T) {
+    vector<pair<B, A>> ans;
+    for(auto p : T) ans.push_back(make_pair(p.second, p.first));
     return ans;
 }
 
