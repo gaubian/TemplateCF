@@ -139,6 +139,13 @@ vector<T> read_tab(int n) {
     return ans;
 }
 
+template<typename A, typename B>
+vector<pair<A,B>> read_tab(int n) {
+    vector<pair<A,B>> ans(n);
+    for(int i = 0; i < n; ++i) cin >> ans[i].first >> ans[i].second;
+    return ans;
+}
+
 template<typename C>
 struct is_iterable {
   typedef long false_type;
