@@ -24,7 +24,6 @@
 
 using namespace std;
 
-#define DEBUG printf("\nPassing [%s] in LINE %d\n",__FUNCTION__,__LINE__)
 #define fo(i,a,n) for (int i=a;i<n;i++)
 #define of(i,a,n) for (int i=n-1;i>=a;i--)
 #define pb push_back
@@ -126,7 +125,12 @@ pair<vector<A>, vector<B>> unzip(vector<pair<A, B>> &T) {
 }
 
 template<typename A, typename B>
-vector<pair<B, A>> zip_rev(vector<pair<A,B>> &T) {
+pair<B, A> rev(const pair<A,B> &p) {
+    return make_pair(p.second, p.first);
+}
+
+template<typename A, typename B>
+vector<pair<B, A>> rev(const vector<pair<A,B>> &T) {
     vector<pair<B, A>> ans;
     for(auto p : T) ans.push_back(make_pair(p.second, p.first));
     return ans;
@@ -144,6 +148,37 @@ vector<pair<A,B>> read_tab(int n) {
     vector<pair<A,B>> ans(n);
     for(int i = 0; i < n; ++i) cin >> ans[i].first >> ans[i].second;
     return ans;
+}
+
+template<typename T>
+vector<vector<T>> read_matrix(int m, int n) {
+    vector<vector<T>> mat(m, vector<T> (n));
+    for(int i = 0; i < m; ++i)
+    for(int j = 0; j < n; ++j)
+        cin >> mat[i][j];
+    return mat;
+}
+
+template<typename T>
+vector<vector<T>> transpose(vector<vector<T>> &mat) {
+    int m = mat.size();
+    int n = mat[0].size();
+    vector<vector<T>> trans_mat(n, vector<T> (m));
+    for(int i = 0; i < m; ++i)
+    for(int j = 0; j < n; ++j)
+        trans_mat[j][i] = mat[i][j];
+    return trans_mat;
+}
+
+template<typename T>
+vector<vector<T>> rotate(vector<vector<T>> &mat) {
+    int m = mat.size();
+    int n = mat[0].size();
+    vector<vector<T>> rot_mat(n, vector<T> (m));
+    for(int i = 0; i < m; ++i)
+    for(int j = 0; j < n; ++j)
+        rot_mat[j][i] = mat[m-i][j];
+    return rot_mat;
 }
 
 template<typename C>
