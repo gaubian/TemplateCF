@@ -181,6 +181,51 @@ vector<vector<T>> rotate(vector<vector<T>> &mat) {
     return rot_mat;
 }
 
+template<long long MOD>
+struct ModInt
+{
+    long long x;
+    ModInt() : x(0) { }
+    ModInt(long long u) : x(u) { if (x >= MOD || x < 0) { x %= MOD; if (x < 0) x += MOD; } } 
+    ModInt(const ModInt &m) : x(m.x) { }
+    ModInt& operator=(const ModInt &m) { x = m.x; return *this; }
+    friend bool operator==(const ModInt& a, const ModInt& b) { return a.x == b.x; }
+    friend bool operator!=(const ModInt& a, const ModInt& b) { return a.x != b.x; }
+    friend bool operator<(const ModInt& a, const ModInt& b) { return a.x < b.x; }
+ 
+    ModInt& operator+=(const ModInt& m) { x += m.x; if (x >= MOD) x -= MOD; return *this; }
+    ModInt& operator-=(const ModInt& m) { x -= m.x; if (x < 0) x += MOD; return *this; }
+    ModInt& operator*=(const ModInt& m) { x = (x*m.x)%MOD; return *this; }    
+ 
+    friend ModInt operator+(const ModInt& a, const ModInt &b) { return ModInt(a) += ModInt(b); }
+    friend ModInt operator-(const ModInt& a, const ModInt &b) { return ModInt(a) -= ModInt(b); }
+    friend ModInt operator*(const ModInt& a, const ModInt &b) { return ModInt(a) *= ModInt(b); }
+ 
+    static long long fp(long long u, long long k) {
+        if (k == 0) return 1;
+        long long res = fp(u, k/2);
+        res = (res*res) % MOD;
+        if (k & 1) res = (res*u) % MOD;
+        return res;
+    }
+ 
+    ModInt fastpow(long long k) { return ModInt(fp(x, k)); }
+    ModInt inv() { return ModInt(fp(x, MOD-2)); }
+
+    friend ostream& operator<<(ostream& os, const ModInt& v) {
+        return (os << v.x);
+    }
+    friend istream& operator>>(istream& is, ModInt& v) {
+        LL temp;
+        is >> temp;
+        v = ModInt(temp);
+        return is;
+    }
+
+    ModInt& operator/=(const ModInt& m) { x = (x*fp(m.x, MOD - 2)) % MOD; return *this; }    
+    friend ModInt operator/(const ModInt& a, const ModInt &b) { return ModInt(a) /= ModInt(b); }
+};
+
 template<typename C>
 struct is_iterable {
   typedef long false_type;
@@ -261,5 +306,4 @@ signed main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-
 }
