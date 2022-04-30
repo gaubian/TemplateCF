@@ -302,8 +302,16 @@ void print(T x) {
     }
 }
 
+template <typename T>
+void prt(T x) {
+    print(x);
+    cout << endl;
+}
+
 signed main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
+    set<int> se = {1,2,3};
+    prt(se);
 }
